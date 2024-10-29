@@ -1,0 +1,4 @@
+# notesheet
+
+# ['For JEFF Information', 'CS Courses', 'State-Level Data By Year', 'StateData', 'LEA-Level Data SY 2019-2020', 'LEA-Level Data SY 2020-2021', 'LEA-Level Data SY 2021-2022', 'LEA-Level Data SY 2022-2023', 'LEAData', 'D&S2020', 'School-Level Data SY 2019-2020', 'School-Level Data SY 2020-2021', 'School-Level Data SY 2021-2022', 'School-Level Data SY 2022-2023', 'SchoolsDataOld2', 'SchoolsDataNewUse', 'Course-Level Data SY 2019-2020', 'Course-Level Data SY 2020-2021', 'Course-Level Data SY 2021-2022', 'Course-Level Data SY 2022-2023', 'CourseData', 'D&S2022', 'D&S2021', 'Instructions from ECEP', 'Data Checklist', 'Revisions 2022']
+# sheet = pd.read_excel(xls, sheet_name='State-Level Data By Year')
