@@ -28,9 +28,11 @@ def getCorrectValue(raw_value):
 all_years_lea_sheets = [pd.read_excel(xls, sheet_name=f"LEA-Level Data SY {year}", header=[1]) for year in data_years]
 all_leas = {}
 
-for index, row in all_years_lea_sheets[0].iterrows():
-    if pd.isna(row['District Number (NCES)']): continue
-    all_leas[int(row['District Number (NCES)'])] = row['District Name']
+for i in range(len(all_years_lea_sheets)):
+    for index, row in all_years_lea_sheets[i].iterrows():
+        if pd.isna(row['District Number (NCES)']): continue
+        if int(row['District Number (NCES)']) not in all_leas:
+            all_leas[int(row['District Number (NCES)'])] = row['District Name']
 
 
 for district_number in all_leas:
