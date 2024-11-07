@@ -113,7 +113,7 @@ for district_number in all_leas:
         for j in range(i + 2, len(axs_flat)):
             axs_flat[j].axis('off')
         
-        plt.text(0.95, 0.01, '[*] The values that are less than 9 are displayed as 1.',
+        plt.text(0.95, 0.01, '[*] Values that are between 1 and 9 are shown as 1 due to data masking.',
              verticalalignment='bottom', horizontalalignment='right',
              transform=plt.gca().transAxes, fontsize=8, color='gray')
 
