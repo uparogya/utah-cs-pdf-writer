@@ -79,19 +79,19 @@ for i in range(len(all_years_lea_sheets)):
 for district_number in all_leas:
     pdf_file = './PDF/lea_pdfs/' + sub(r'[^a-zA-Z ]', '', all_leas[district_number]).lower().replace(' ','_') + '.pdf'
 
-    total_Total, cs_Total = [0]*len(data_years), [0]*len(data_years)
-    total_Female, cs_Female = [0]*len(data_years), [0]*len(data_years)
-    total_Male, cs_Male = [0]*len(data_years), [0]*len(data_years)
-    total_American_Indian_or_Alaska_Native, cs_American_Indian_or_Alaska_Native = [0]*len(data_years), [0]*len(data_years)
-    total_Asian, cs_Asian = [0]*len(data_years), [0]*len(data_years)
-    total_Black_or_African_American, cs_Black_or_African_American = [0]*len(data_years), [0]*len(data_years)
-    total_Hispanic_or_Latino, cs_Hispanic_or_Latino = [0]*len(data_years), [0]*len(data_years)
-    total_Native_Hawaiian_or_Pacific_Islander, cs_Native_Hawaiian_or_Pacific_Islander = [0]*len(data_years), [0]*len(data_years)
-    total_Two_or_more_races, cs_Two_or_more_races = [0]*len(data_years), [0]*len(data_years)
-    total_White, cs_White = [0]*len(data_years), [0]*len(data_years)
-    total_Disability, cs_Disability = [0]*len(data_years), [0]*len(data_years)
-    total_Eco_Dis, cs_Eco_Dis = [0]*len(data_years), [0]*len(data_years)
-    total_Eng_Learners, cs_Eng_Learners = [0]*len(data_years), [0]*len(data_years)
+    total_Total, cs_Total, csc_Total, csb_Total, csa_Total, csr_Total = [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years)
+    total_Female, cs_Female, csc_Female, csb_Female, csa_Female, csr_Female = [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years)
+    total_Male, cs_Male, csc_Male, csb_Male, csa_Male, csr_Male = [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years)
+    total_American_Indian_or_Alaska_Native, cs_American_Indian_or_Alaska_Native, csc_American_Indian_or_Alaska_Native, csb_American_Indian_or_Alaska_Native, csa_American_Indian_or_Alaska_Native, csr_American_Indian_or_Alaska_Native = [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years)
+    total_Asian, cs_Asian, csc_Asian, csb_Asian, csa_Asian, csr_Asian = [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years)
+    total_Black_or_African_American, cs_Black_or_African_American, csc_Black_or_African_American, csb_Black_or_African_American, csa_Black_or_African_American, csr_Black_or_African_American = [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years)
+    total_Hispanic_or_Latino, cs_Hispanic_or_Latino, csc_Hispanic_or_Latino, csb_Hispanic_or_Latino, csa_Hispanic_or_Latino, csr_Hispanic_or_Latino = [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years)
+    total_Native_Hawaiian_or_Pacific_Islander, cs_Native_Hawaiian_or_Pacific_Islander, csc_Native_Hawaiian_or_Pacific_Islander, csb_Native_Hawaiian_or_Pacific_Islander, csa_Native_Hawaiian_or_Pacific_Islander, csr_Native_Hawaiian_or_Pacific_Islander = [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years)
+    total_Two_or_more_races, cs_Two_or_more_races, csc_Two_or_more_races, csb_Two_or_more_races, csa_Two_or_more_races, csr_Two_or_more_races = [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years)
+    total_White, cs_White, csc_White, csb_White, csa_White, csr_White = [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years)
+    total_Disability, cs_Disability, csc_Disability, csb_Disability, csa_Disability, csr_Disability = [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years)
+    total_Eco_Dis, cs_Eco_Dis, csc_Eco_Dis, csb_Eco_Dis, csa_Eco_Dis, csr_Eco_Dis = [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years)
+    total_Eng_Learners, cs_Eng_Learners, csc_Eng_Learners, csb_Eng_Learners, csa_Eng_Learners, csr_Eng_Learners = [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years), [0]*len(data_years)
 
     for i in range(len(data_years)):
         lea_row = all_years_lea_sheets[i][all_years_lea_sheets[i]['District Number (NCES)'] == district_number]
@@ -125,6 +125,62 @@ for district_number in all_leas:
         cs_Disability[i] = (getCorrectValue(lea_row.iloc[0]["CS: Disability"]))
         cs_Eco_Dis[i] = (getCorrectValue(lea_row.iloc[0]["CS: Eco. Dis."]))
         cs_Eng_Learners[i] = (getCorrectValue(lea_row.iloc[0]["CS: Eng. Learners"]))
+
+        csc_Total[i] = (getCorrectValue(lea_row.iloc[0]["CSC: Total"]))
+        csc_Female[i] = (getCorrectValue(lea_row.iloc[0]["CSC: Female"]))
+        csc_Male[i] = (getCorrectValue(lea_row.iloc[0]["CSC: Male"]))
+        csc_American_Indian_or_Alaska_Native[i] = (getCorrectValue(lea_row.iloc[0]["CSC: American Indian or Alaska Native"]))
+        csc_Asian[i] = (getCorrectValue(lea_row.iloc[0]["CSC: Asian"]))
+        csc_Black_or_African_American[i] = (getCorrectValue(lea_row.iloc[0]["CSC: Black or African American"]))
+        csc_Hispanic_or_Latino[i] = (getCorrectValue(lea_row.iloc[0]["CSC: Hispanic or Latino"]))
+        csc_Native_Hawaiian_or_Pacific_Islander[i] = (getCorrectValue(lea_row.iloc[0]["CSC: Native Hawaiian or Pacific Islander"]))
+        csc_Two_or_more_races[i] = (getCorrectValue(lea_row.iloc[0]["CSC: Two or more races"]))
+        csc_White[i] = (getCorrectValue(lea_row.iloc[0]["CSC: White"]))
+        csc_Disability[i] = (getCorrectValue(lea_row.iloc[0]["CSC: Disability"]))
+        csc_Eco_Dis[i] = (getCorrectValue(lea_row.iloc[0]["CSC: Eco. Dis."]))
+        csc_Eng_Learners[i] = (getCorrectValue(lea_row.iloc[0]["CSC: Eng. Learners"]))
+
+        csb_Total[i] = (getCorrectValue(lea_row.iloc[0]["CSB: Total"]))
+        csb_Female[i] = (getCorrectValue(lea_row.iloc[0]["CSB: Female"]))
+        csb_Male[i] = (getCorrectValue(lea_row.iloc[0]["CSB: Male"]))
+        csb_American_Indian_or_Alaska_Native[i] = (getCorrectValue(lea_row.iloc[0]["CSB: American Indian or Alaska Native"]))
+        csb_Asian[i] = (getCorrectValue(lea_row.iloc[0]["CSB: Asian"]))
+        csb_Black_or_African_American[i] = (getCorrectValue(lea_row.iloc[0]["CSB: Black or African American"]))
+        csb_Hispanic_or_Latino[i] = (getCorrectValue(lea_row.iloc[0]["CSB: Hispanic or Latino"]))
+        csb_Native_Hawaiian_or_Pacific_Islander[i] = (getCorrectValue(lea_row.iloc[0]["CSB: Native Hawaiian or Pacific Islander"]))
+        csb_Two_or_more_races[i] = (getCorrectValue(lea_row.iloc[0]["CSB: Two or more races"]))
+        csb_White[i] = (getCorrectValue(lea_row.iloc[0]["CSB: White"]))
+        csb_Disability[i] = (getCorrectValue(lea_row.iloc[0]["CSB: Disability"]))
+        csb_Eco_Dis[i] = (getCorrectValue(lea_row.iloc[0]["CSB: Eco. Dis."]))
+        csb_Eng_Learners[i] = (getCorrectValue(lea_row.iloc[0]["CSB: Eng. Learners"]))
+
+        csa_Total[i] = (getCorrectValue(lea_row.iloc[0]["CSA: Total"]))
+        csa_Female[i] = (getCorrectValue(lea_row.iloc[0]["CSA: Female"]))
+        csa_Male[i] = (getCorrectValue(lea_row.iloc[0]["CSA: Male"]))
+        csa_American_Indian_or_Alaska_Native[i] = (getCorrectValue(lea_row.iloc[0]["CSA: American Indian or Alaska Native"]))
+        csa_Asian[i] = (getCorrectValue(lea_row.iloc[0]["CSA: Asian"]))
+        csa_Black_or_African_American[i] = (getCorrectValue(lea_row.iloc[0]["CSA: Black or African American"]))
+        csa_Hispanic_or_Latino[i] = (getCorrectValue(lea_row.iloc[0]["CSA: Hispanic or Latino"]))
+        csa_Native_Hawaiian_or_Pacific_Islander[i] = (getCorrectValue(lea_row.iloc[0]["CSA: Native Hawaiian or Pacific Islander"]))
+        csa_Two_or_more_races[i] = (getCorrectValue(lea_row.iloc[0]["CSA: Two or more races"]))
+        csa_White[i] = (getCorrectValue(lea_row.iloc[0]["CSA: White"]))
+        csa_Disability[i] = (getCorrectValue(lea_row.iloc[0]["CSA: Disability"]))
+        csa_Eco_Dis[i] = (getCorrectValue(lea_row.iloc[0]["CSA: Eco. Dis."]))
+        csa_Eng_Learners[i] = (getCorrectValue(lea_row.iloc[0]["CSA: Eng. Learners"]))
+
+        csr_Total[i] = (getCorrectValue(lea_row.iloc[0]["CSR: Total"]))
+        csr_Female[i] = (getCorrectValue(lea_row.iloc[0]["CSR: Female"]))
+        csr_Male[i] = (getCorrectValue(lea_row.iloc[0]["CSR: Male"]))
+        csr_American_Indian_or_Alaska_Native[i] = (getCorrectValue(lea_row.iloc[0]["CSR: American Indian or Alaska Native"]))
+        csr_Asian[i] = (getCorrectValue(lea_row.iloc[0]["CSR: Asian"]))
+        csr_Black_or_African_American[i] = (getCorrectValue(lea_row.iloc[0]["CSR: Black or African American"]))
+        csr_Hispanic_or_Latino[i] = (getCorrectValue(lea_row.iloc[0]["CSR: Hispanic or Latino"]))
+        csr_Native_Hawaiian_or_Pacific_Islander[i] = (getCorrectValue(lea_row.iloc[0]["CSR: Native Hawaiian or Pacific Islander"]))
+        csr_Two_or_more_races[i] = (getCorrectValue(lea_row.iloc[0]["CSR: Two or more races"]))
+        csr_White[i] = (getCorrectValue(lea_row.iloc[0]["CSR: White"]))
+        csr_Disability[i] = (getCorrectValue(lea_row.iloc[0]["CSR: Disability"]))
+        csr_Eco_Dis[i] = (getCorrectValue(lea_row.iloc[0]["CSR: Eco. Dis."]))
+        csr_Eng_Learners[i] = (getCorrectValue(lea_row.iloc[0]["CSR: Eng. Learners"]))
     
     with PdfPages(pdf_file) as pdf:
         total_categories = {
@@ -142,7 +198,6 @@ for district_number in all_leas:
             'Economically Disadvantaged': total_Eco_Dis,
             'English Learners': total_Eng_Learners
         }
-        plot_student_data(pdf, data_years, total_categories, 'Total Students', all_leas[district_number])
 
         cs_categories = {
             'Total': cs_Total,
@@ -159,7 +214,78 @@ for district_number in all_leas:
             'Economically Disadvantaged': cs_Eco_Dis,
             'English Learners': cs_Eng_Learners
         }
+
+        csc_categories = {
+            'Total': csc_Total,
+            'Female': csc_Female,
+            'Male': csc_Male,
+            'American Indian or Alaska Native': csc_American_Indian_or_Alaska_Native,
+            'Asian': csc_Asian,
+            'Black or African American': csc_Black_or_African_American,
+            'Hispanic or Latino': csc_Hispanic_or_Latino,
+            'Native Hawaiian or Pacific Islander': csc_Native_Hawaiian_or_Pacific_Islander,
+            'Two or More Races': csc_Two_or_more_races,
+            'White': csc_White,
+            'Disability': csc_Disability,
+            'Economically Disadvantaged': csc_Eco_Dis,
+            'English Learners': csc_Eng_Learners
+        }
+
+        csb_categories = {
+            'Total': csb_Total,
+            'Female': csb_Female,
+            'Male': csb_Male,
+            'American Indian or Alaska Native': csb_American_Indian_or_Alaska_Native,
+            'Asian': csb_Asian,
+            'Black or African American': csb_Black_or_African_American,
+            'Hispanic or Latino': csb_Hispanic_or_Latino,
+            'Native Hawaiian or Pacific Islander': csb_Native_Hawaiian_or_Pacific_Islander,
+            'Two or More Races': csb_Two_or_more_races,
+            'White': csb_White,
+            'Disability': csb_Disability,
+            'Economically Disadvantaged': csb_Eco_Dis,
+            'English Learners': csb_Eng_Learners
+        }
+
+        csa_categories = {
+            'Total': csa_Total,
+            'Female': csa_Female,
+            'Male': csa_Male,
+            'American Indian or Alaska Native': csa_American_Indian_or_Alaska_Native,
+            'Asian': csa_Asian,
+            'Black or African American': csa_Black_or_African_American,
+            'Hispanic or Latino': csa_Hispanic_or_Latino,
+            'Native Hawaiian or Pacific Islander': csa_Native_Hawaiian_or_Pacific_Islander,
+            'Two or More Races': csa_Two_or_more_races,
+            'White': csa_White,
+            'Disability': csa_Disability,
+            'Economically Disadvantaged': csa_Eco_Dis,
+            'English Learners': csa_Eng_Learners
+        }
+
+        csr_categories = {
+            'Total': csr_Total,
+            'Female': csr_Female,
+            'Male': csr_Male,
+            'American Indian or Alaska Native': csr_American_Indian_or_Alaska_Native,
+            'Asian': csr_Asian,
+            'Black or African American': csr_Black_or_African_American,
+            'Hispanic or Latino': csr_Hispanic_or_Latino,
+            'Native Hawaiian or Pacific Islander': csr_Native_Hawaiian_or_Pacific_Islander,
+            'Two or More Races': csr_Two_or_more_races,
+            'White': csr_White,
+            'Disability': csr_Disability,
+            'Economically Disadvantaged': csr_Eco_Dis,
+            'English Learners': csr_Eng_Learners
+        }
+
         plot_student_data(pdf, data_years, cs_categories, 'All CS', all_leas[district_number])
+        plot_student_data(pdf, data_years, csc_categories, 'Core CS', all_leas[district_number])
+        plot_student_data(pdf, data_years, csr_categories, 'Related CS', all_leas[district_number])
+        plot_student_data(pdf, data_years, csb_categories, 'Basic CS', all_leas[district_number])
+        plot_student_data(pdf, data_years, csa_categories, 'Advanced CS', all_leas[district_number])
+
+        plot_student_data(pdf, data_years, total_categories, 'Total Students', all_leas[district_number])
 
     print(all_leas[district_number] + ' --- Completed')
     # break
