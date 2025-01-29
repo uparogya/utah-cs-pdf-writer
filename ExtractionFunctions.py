@@ -65,3 +65,6 @@ class ExtractionTools:
         plt.close(fig)
 
         # print(title + " --- Completed")
+
+    def concurrentEnrollmentAddedValueCorrection(raw_value):
+        return 1 if raw_value == 2 else raw_value

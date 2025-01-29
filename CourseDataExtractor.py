@@ -103,19 +103,19 @@ class CourseDataExtraction:
                 if lea_row.empty or lea_row_ce.empty:
                     continue
 
-                total_Total[i] = (ExtractionTools.getCorrectValue(lea_row.iloc[0]["Total"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Total"]))
-                total_Female[i] = (ExtractionTools.getCorrectValue(lea_row.iloc[0]["Female"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Female"]))
-                total_Male[i] = (ExtractionTools.getCorrectValue(lea_row.iloc[0]["Male"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Male"]))
-                total_American_Indian_or_Alaska_Native[i] = (ExtractionTools.getCorrectValue(lea_row.iloc[0]["American Indian or Alaska Native"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["American Indian or Alaska Native"]))
-                total_Asian[i] = (ExtractionTools.getCorrectValue(lea_row.iloc[0]["Asian"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Asian"]))
-                total_Black_or_African_American[i] = (ExtractionTools.getCorrectValue(lea_row.iloc[0]["Black or African American"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Black or African American"]))
-                total_Hispanic_or_Latino[i] = (ExtractionTools.getCorrectValue(lea_row.iloc[0]["Hispanic or Latino"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Hispanic or Latino"]))
-                total_Native_Hawaiian_or_Pacific_Islander[i] = (ExtractionTools.getCorrectValue(lea_row.iloc[0]["Native Hawaiian or Pacific Islander"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Native Hawaiian or Pacific Islander"]))
-                total_Two_or_more_races[i] = (ExtractionTools.getCorrectValue(lea_row.iloc[0]["Two or more races"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Two or more races"]))
-                total_White[i] = (ExtractionTools.getCorrectValue(lea_row.iloc[0]["White"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["White"]))
-                total_Disability[i] = (ExtractionTools.getCorrectValue(lea_row.iloc[0]["Disability"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Disability"]))
-                total_Eco_Dis[i] = (ExtractionTools.getCorrectValue(lea_row.iloc[0]["Eco. Dis."])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Eco. Dis."]))
-                total_Eng_Learners[i] = (ExtractionTools.getCorrectValue(lea_row.iloc[0]["Eng. Learners"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Eng. Learners"]))
+                total_Total[i] = ExtractionTools.concurrentEnrollmentAddedValueCorrection((ExtractionTools.getCorrectValue(lea_row.iloc[0]["Total"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Total"])))
+                total_Female[i] = ExtractionTools.concurrentEnrollmentAddedValueCorrection((ExtractionTools.getCorrectValue(lea_row.iloc[0]["Female"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Female"])))
+                total_Male[i] = ExtractionTools.concurrentEnrollmentAddedValueCorrection((ExtractionTools.getCorrectValue(lea_row.iloc[0]["Male"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Male"])))
+                total_American_Indian_or_Alaska_Native[i] = ExtractionTools.concurrentEnrollmentAddedValueCorrection((ExtractionTools.getCorrectValue(lea_row.iloc[0]["American Indian or Alaska Native"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["American Indian or Alaska Native"])))
+                total_Asian[i] = ExtractionTools.concurrentEnrollmentAddedValueCorrection((ExtractionTools.getCorrectValue(lea_row.iloc[0]["Asian"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Asian"])))
+                total_Black_or_African_American[i] = ExtractionTools.concurrentEnrollmentAddedValueCorrection((ExtractionTools.getCorrectValue(lea_row.iloc[0]["Black or African American"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Black or African American"])))
+                total_Hispanic_or_Latino[i] = ExtractionTools.concurrentEnrollmentAddedValueCorrection((ExtractionTools.getCorrectValue(lea_row.iloc[0]["Hispanic or Latino"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Hispanic or Latino"])))
+                total_Native_Hawaiian_or_Pacific_Islander[i] = ExtractionTools.concurrentEnrollmentAddedValueCorrection((ExtractionTools.getCorrectValue(lea_row.iloc[0]["Native Hawaiian or Pacific Islander"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Native Hawaiian or Pacific Islander"])))
+                total_Two_or_more_races[i] = ExtractionTools.concurrentEnrollmentAddedValueCorrection((ExtractionTools.getCorrectValue(lea_row.iloc[0]["Two or more races"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Two or more races"])))
+                total_White[i] = ExtractionTools.concurrentEnrollmentAddedValueCorrection((ExtractionTools.getCorrectValue(lea_row.iloc[0]["White"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["White"])))
+                total_Disability[i] = ExtractionTools.concurrentEnrollmentAddedValueCorrection((ExtractionTools.getCorrectValue(lea_row.iloc[0]["Disability"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Disability"])))
+                total_Eco_Dis[i] = ExtractionTools.concurrentEnrollmentAddedValueCorrection((ExtractionTools.getCorrectValue(lea_row.iloc[0]["Eco. Dis."])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Eco. Dis."])))
+                total_Eng_Learners[i] = ExtractionTools.concurrentEnrollmentAddedValueCorrection((ExtractionTools.getCorrectValue(lea_row.iloc[0]["Eng. Learners"])) + (ExtractionTools.getCorrectValue(lea_row_ce.iloc[0]["Eng. Learners"])))
 
                 with PdfPages(pdf_file) as pdf:
                     total_categories = {
