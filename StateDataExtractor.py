@@ -204,11 +204,11 @@ class StateDataExtraction:
                 'English Learners': csr_Eng_Learners
             }
 
-            ExtractionTools.plotStudentData(pdf, data_years, cs_categories, 'All CS', 'Utah State Data')
-            ExtractionTools.plotStudentData(pdf, data_years, csc_categories, 'Core CS', 'Utah State Data')
-            ExtractionTools.plotStudentData(pdf, data_years, csr_categories, 'Related CS', 'Utah State Data')
-            ExtractionTools.plotStudentData(pdf, data_years, csb_categories, 'Basic CS', 'Utah State Data')
-            ExtractionTools.plotStudentData(pdf, data_years, csa_categories, 'Advanced CS', 'Utah State Data')
-            ExtractionTools.plotStudentData(pdf, data_years, total_categories, 'Total Students', 'Utah State Data')
+            ExtractionTools.plotStudentData(pdf, data_years, cs_categories, 'All CS', 'Utah State Data', labelPercentages=True)
+            ExtractionTools.plotStudentData(pdf, data_years, csc_categories, 'Core CS', 'Utah State Data', labelPercentages=True)
+            ExtractionTools.plotStudentData(pdf, data_years, csr_categories, 'Related CS', 'Utah State Data', labelPercentages=True)
+            ExtractionTools.plotStudentData(pdf, data_years, csb_categories, 'Basic CS', 'Utah State Data', labelPercentages=True)
+            ExtractionTools.plotStudentData(pdf, data_years, csa_categories, 'Advanced CS', 'Utah State Data', labelPercentages=True)
+            ExtractionTools.plotStudentData(pdf, data_years, total_categories, 'Total Students', 'Utah State Data', labelPercentages=True)
         
 StateDataExtraction.getData()

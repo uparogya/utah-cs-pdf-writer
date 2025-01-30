@@ -24,7 +24,7 @@ class ExtractionTools:
         else:
             return int(raw_value)
     
-    def plotStudentData(pdf, data_years, categories, subTitle, title):
+    def plotStudentData(pdf, data_years, categories, subTitle, title, labelPercentages = False):
         fig, axs = plt.subplots(4, 3, figsize=(15, 15))
         fig.suptitle(f"{title}\n\n{subTitle}", fontsize=16)
 
@@ -40,12 +40,19 @@ class ExtractionTools:
         axs[0, 0].grid()
 
         axs_flat = axs.flatten()
+        total_students = categories['Total']
         categories.pop(list(categories.keys())[0])
         categories.pop(list(categories.keys())[1])
 
         for i, (category_name, data) in enumerate(categories.items()):
             if category_name not in ['Total', 'Female', 'Male']:
                 axs_flat[i].plot(data_years, data, marker='o')
+
+                if labelPercentages:
+                    for j, year in enumerate(data_years):
+                        # axs_flat[i].annotate(str(data[j])+'[99%]', (data_years[j], data[j]), textcoords="offset points", xytext=(0,5), ha='center', fontsize=8)
+                        axs_flat[i].annotate(str(round(data[j]*100/total_students[j],2))+'%', (data_years[j], data[j]), textcoords="offset points", xytext=(0,5), ha='center', fontsize=8, fontweight='light', color='black')
+
                 axs_flat[i].set_title(category_name)
                 axs_flat[i].set_xlabel('School Year')
                 axs_flat[i].set_ylabel('Students')
