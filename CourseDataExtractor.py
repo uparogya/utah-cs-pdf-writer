@@ -8,7 +8,7 @@ data_years = ExtractionTools.data_years
 
 class CourseDataExtraction:
 
-    def getData():
+    def getData(self):
         all_years_course_sheets = [pd.read_excel(xls, sheet_name=f"Course-Level Data SY {year}", header=[1]) for year in data_years]
         all_courses = {}
 
@@ -77,7 +77,7 @@ class CourseDataExtraction:
                         'English Learners': total_Eng_Learners
                     }
 
-                    ExtractionTools.plotStudentData(pdf, data_years, total_categories, 'Total Students', all_courses[course_code])
+                    ExtractionTools.plotStudentData(pdf, data_years, total_categories, 'Total Students', all_courses[course_code], self.plotPercentages(course_code))
         
         for ce_course_code in concurrent_enrollment_courses:
             pdf_file = './PDF/course_pdfs/' + sub(r'[^a-zA-Z ]', '', all_courses[concurrent_enrollment_courses[ce_course_code]]).lower().replace(' ','_') + '.pdf'
@@ -134,6 +134,11 @@ class CourseDataExtraction:
                         'English Learners': total_Eng_Learners
                     }
 
-                    ExtractionTools.plotStudentData(pdf, data_years, total_categories, 'Total Students', all_courses[concurrent_enrollment_courses[ce_course_code]] + ' + CE')
+                    ExtractionTools.plotStudentData(pdf, data_years, total_categories, 'Total Students', all_courses[concurrent_enrollment_courses[ce_course_code]] + ' + CE', self.plotPercentages(ce_course_code))
 
-CourseDataExtraction.getData()
+    def plotPercentages(self, course_code):
+        percentage_required_courses = set([35020000007, 35020000060, 35020000030, 35020000035, 35020000045])
+        percentage_required_courses = percentage_required_courses | set([course + 13000 for course in percentage_required_courses])
+        return True if course_code in percentage_required_courses else False
+
+CourseDataExtraction().getData()
