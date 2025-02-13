@@ -107,7 +107,7 @@ class StateDataExtraction:
             csr_Eco_Dis[i] = ExtractionTools.getCorrectValue(utah_sheet[0].iloc[i]["CSR: Eco. Dis."])
             csr_Eng_Learners[i] = ExtractionTools.getCorrectValue(utah_sheet[0].iloc[i]["CSR: Eng. Learners"])
     
-        with PdfPages('./PDF/utah_pdfs/State_Data.pdf') as pdf:
+        with PdfPages('./PDF/utah_pdfs/state_data.pdf') as pdf:
             total_categories = {
                 'Total': total_Total,
                 'Female': total_Female,
@@ -210,5 +210,42 @@ class StateDataExtraction:
             ExtractionTools.plotStudentData(pdf, data_years, csb_categories, 'Basic CS', 'Utah State Data', labelPercentages=True)
             ExtractionTools.plotStudentData(pdf, data_years, csa_categories, 'Advanced CS', 'Utah State Data', labelPercentages=True)
             ExtractionTools.plotStudentData(pdf, data_years, total_categories, 'Total Students', 'Utah State Data', labelPercentages=True)
+        
+        
+        with PdfPages('./PDF/utah_pdfs/state_gender_data.pdf') as pdf:
+            gender_data_all_categories = {
+                'Total Students': {
+                    'Total': total_Total,
+                    'Female': total_Female,
+                    'Male': total_Male
+                },
+                'All CS': {
+                    'Total': cs_Total,
+                    'Female': cs_Female,
+                    'Male': cs_Male
+                },
+                'Core CS': {
+                    'Total': csc_Total,
+                    'Female': csc_Female,
+                    'Male': csc_Male
+                },
+                'Related CS': {
+                    'Total': csr_Total,
+                    'Female': csr_Female,
+                    'Male': csr_Male
+                },
+                'Basic CS': {
+                    'Total': csb_Total,
+                    'Female': csb_Female,
+                    'Male': csb_Male
+                },
+                'Advanced CS': {
+                    'Total': csa_Total,
+                    'Female': csa_Female,
+                    'Male': csa_Male
+                }
+            }
+
+            ExtractionTools.plotGenderGraphs(pdf, data_years, gender_data_all_categories, 'Gender Data - All Categories', 'Utah State Data')
         
 StateDataExtraction.getData()

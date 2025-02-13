@@ -75,5 +75,62 @@ class ExtractionTools:
 
         # print(title + " --- Completed")
 
+    def plotGenderGraphs(pdf, data_years, gender_data_all_categories, subTitle, title):
+        fig, axs = plt.subplots(3, 4, figsize=(23, 15))
+        fig.suptitle(f"{title}\n\n{subTitle}", fontsize=16)
+        axs_flat = axs.flatten()
+
+        for i, (category_title, category_data) in enumerate(gender_data_all_categories.items()):
+            ax_graph = axs_flat[2 * i]
+            ax_graph.plot(data_years, category_data['Total'], label='Total', marker='o')
+            ax_graph.plot(data_years, category_data['Female'], label='Female', marker='o')
+            ax_graph.plot(data_years, category_data['Male'], label='Male', marker='o')
+            ax_graph.set_title(category_title)
+            ax_graph.set_xlabel('School Year')
+            ax_graph.set_ylabel('Students')
+            ax_graph.set_ylim(bottom=0)
+            ax_graph.yaxis.set_major_locator(MaxNLocator(integer=True))
+            ax_graph.legend()
+            ax_graph.grid()
+
+            ax_table = axs_flat[2 * i + 1]
+            ax_table.axis('off')
+
+            df = pd.DataFrame(category_data, index=data_years)
+
+            table_data = [['Year', 'Total', 'Female', 'Male']]
+            for x, year in enumerate(data_years):
+                total = category_data['Total'][x]
+                female = category_data['Female'][x]
+                male = category_data['Male'][x]
+
+                female_percentage = (female / total * 100) if total != 0 else 0
+                male_percentage = (male / total * 100) if total != 0 else 0
+
+                table_data.append([
+                    year,
+                    total,
+                    f"{female} \n({female_percentage:.1f}%)",
+                    f"{male} \n({male_percentage:.1f}%)"
+                ])
+
+
+            ax_table.set_title(category_title + " - Index", fontsize=12, pad=20)
+            table = ax_table.table(cellText=table_data, loc='center', cellLoc='center', colLabels=None, bbox=[-0.05, 0, 1.05, 1])
+            table.auto_set_font_size(False)
+            table.set_fontsize(10)
+            table.scale(1, 2.7)
+            
+            for (x, y), cell in table.get_celld().items():
+                if x == 0:
+                    cell.set_text_props(fontweight='bold')
+
+        for j in range(2 * len(gender_data_all_categories), len(axs_flat)):
+            axs_flat[j].axis('off')
+
+        plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+        pdf.savefig(fig)
+        plt.close(fig)
+
     def concurrentEnrollmentAddedValueCorrection(raw_value):
         return 1 if raw_value == 2 else raw_value
