@@ -53,7 +53,7 @@ class ExtractionTools:
                         # axs_flat[i].annotate(str(data[j])+'[99%]', (data_years[j], data[j]), textcoords="offset points", xytext=(0,5), ha='center', fontsize=8)
                         if total_students[j] == 0:
                             continue
-                        axs_flat[i].annotate(str(round(data[j]*100/total_students[j],2))+'%', (data_years[j], data[j]), textcoords="offset points", xytext=(0,5), ha='center', fontsize=8, fontweight='bold', color='darkblue')
+                        axs_flat[i].annotate(str(round(data[j]*100/total_students[j],2))+'%', (data_years[j], data[j]), textcoords="offset points", xytext=(5,-15), ha='center', fontsize=8, fontweight='bold', color='firebrick')
 
                 axs_flat[i].set_title(category_name)
                 axs_flat[i].set_xlabel('School Year')
