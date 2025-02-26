@@ -6,7 +6,7 @@ class ExtractionTools:
 
     print("Extracting Data...")
 
-    xls = pd.ExcelFile('./excel_sheet.xlsx')
+    xls = pd.ExcelFile('./assets/excel_sheet.xlsx')
 
     data_years = [
         "2019-2020",
