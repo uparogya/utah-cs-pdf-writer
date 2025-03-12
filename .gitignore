@@ -2,3 +2,4 @@
 __pycache__
 /temp
 /IPEDS_excel_extract
+.DS_Store
