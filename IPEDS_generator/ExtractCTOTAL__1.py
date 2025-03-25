@@ -48,7 +48,7 @@ for sheet in all_sheets:
     final_data.extend(year_data)
     
     total_row = {
-        'Year': '',
+        'Year': sheet,
         'AWLEVEL': 'Total',
         'CTOTALW': sum(values['CTOTALW'] for values in ctotal.values()),
         'CTOTALM': sum(values['CTOTALM'] for values in ctotal.values()),
