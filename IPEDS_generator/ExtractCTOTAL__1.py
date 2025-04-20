@@ -4,11 +4,16 @@ import InstitutionList
 xls = pd.ExcelFile('./assets/IPEDS/IPEDS.xlsx')
 
 all_sheets = xls.sheet_names
-excluded_unitid = [433387]
+excluded_unitid = []
+# excluded_unitid = [433387]
+included_years = ['2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015']
 final_data = []
 unitid_totals = {}
 
 for sheet in all_sheets:
+    if sheet not in included_years:
+        continue
+
     data_frame = pd.read_excel(xls, sheet_name=sheet, header=[0])
     unitid_data = data_frame[~data_frame['UNITID'].isin(excluded_unitid)]
     unitid_data = unitid_data.groupby(['UNITID', 'AWLEVEL'], as_index=False)[['CTOTALW', 'CTOTALM', 'CTOTALT']].sum()
@@ -63,13 +68,23 @@ for sheet, unitid_data in unitid_totals.items():
         awlevel = row['AWLEVEL']
         mask = (final_df['Year'] == sheet) & (final_df['AWLEVEL'] == awlevel)
         row_idx = final_df.index[mask]
+        # print(row['CTOTALT'])
+        # print(final_df[mask]['CTOTALT'].values[0])
         if row_idx.empty:
             continue
         for metric in ['CTOTALW', 'CTOTALM', 'CTOTALT']:
             col_name = f'{inst_name}_{metric}'
             if col_name not in final_df.columns:
                 final_df[col_name] = ''
-            final_df.loc[row_idx[0], col_name] = row[metric]
+            
+            if metric != 'CTOTALT':
+                percentage_of_cell = " ("+str(round((row[metric] / row['CTOTALT']) * 100))+"%) " if pd.notna(row[metric]) and pd.notna(row['CTOTALT']) and row['CTOTALT'] != 0 else ''
+            else:
+                ctotal_value_unique = final_df[mask]['CTOTALT'].values[0]
+                percentage_of_cell = " ("+str(round((row[metric] / ctotal_value_unique) * 100))+"%) " if pd.notna(row[metric]) and pd.notna(ctotal_value_unique) and ctotal_value_unique != 0 else ''
+
+
+            final_df.loc[row_idx[0], col_name] = str(row[metric])+ percentage_of_cell 
             institution_map.setdefault(inst_name, []).append(col_name)
 
 institution_columns = []
@@ -80,6 +95,8 @@ for inst_name in sorted(institution_map):
         f'{inst_name}_CTOTALT'
     ])
 final_df = final_df[base_columns + institution_columns]
+
+# print(final_df)
 
 subheader_1 = base_columns.copy()
 subheader_2 = [''] * len(base_columns)
