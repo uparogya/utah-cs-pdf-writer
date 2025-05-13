@@ -229,6 +229,44 @@ class LEADataExtraction:
                 ExtractionTools.plotStudentData(pdf, data_years, csa_categories, 'Advanced CS', all_leas[district_number])
                 ExtractionTools.plotStudentData(pdf, data_years, total_categories, 'Total Students', all_leas[district_number])
 
+            gender_pdf_file = './PDF/lea_gender_pdfs/' + sub(r'[^a-zA-Z ]', '', all_leas[district_number]).lower().replace(' ','_') + '.pdf'
+            
+            with PdfPages(gender_pdf_file) as pdf:
+                gender_data_all_categories = {
+                    'Total Students': {
+                        'Total': total_Total,
+                        'Female': total_Female,
+                        'Male': total_Male
+                    },
+                    'All CS': {
+                        'Total': cs_Total,
+                        'Female': cs_Female,
+                        'Male': cs_Male
+                    },
+                    'Core CS': {
+                        'Total': csc_Total,
+                        'Female': csc_Female,
+                        'Male': csc_Male
+                    },
+                    'Related CS': {
+                        'Total': csr_Total,
+                        'Female': csr_Female,
+                        'Male': csr_Male
+                    },
+                    'Basic CS': {
+                        'Total': csb_Total,
+                        'Female': csb_Female,
+                        'Male': csb_Male
+                    },
+                    'Advanced CS': {
+                        'Total': csa_Total,
+                        'Female': csa_Female,
+                        'Male': csa_Male
+                    }
+                }
+
+                ExtractionTools.plotGenderGraphs(pdf, data_years, gender_data_all_categories, 'Gender Data - All Categories', all_leas[district_number])
+
             # print(all_leas[district_number] + ' --- Completed')
             # break
 

@@ -127,6 +127,10 @@ class ExtractionTools:
 
         for j in range(2 * len(gender_data_all_categories), len(axs_flat)):
             axs_flat[j].axis('off')
+        
+        plt.text(0.95, -0.1, '[*] Values that are between 1 and 9 are shown as 1 due to data masking.',
+            verticalalignment='bottom', horizontalalignment='right',
+            transform=plt.gca().transAxes, fontsize=8, color='gray')
 
         plt.tight_layout(rect=[0, 0.03, 1, 0.95])
         pdf.savefig(fig)

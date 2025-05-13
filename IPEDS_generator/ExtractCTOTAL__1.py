@@ -83,7 +83,8 @@ for sheet, unitid_data in unitid_totals.items():
                 ctotal_value_unique = final_df[mask]['CTOTALT'].values[0]
                 percentage_of_cell = " ("+str(round((row[metric] / ctotal_value_unique) * 100))+"%) " if pd.notna(row[metric]) and pd.notna(ctotal_value_unique) and ctotal_value_unique != 0 else ''
 
-
+            # toggling the display of percentage:
+            # percentage_of_cell = ''
             final_df.loc[row_idx[0], col_name] = str(row[metric])+ percentage_of_cell 
             institution_map.setdefault(inst_name, []).append(col_name)
 
