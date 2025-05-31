@@ -75,17 +75,27 @@ class ExtractionTools:
 
         # print(title + " --- Completed")
 
-    def plotGenderGraphs(pdf, data_years, gender_data_all_categories, subTitle, title):
+    def plotGenderGraphs(pdf, data_years, gender_data_all_categories, subTitle, title, institution = 'Utah'):
         fig, axs = plt.subplots(3, 4, figsize=(23, 15))
-        fig.suptitle(f"{title}\n\n{subTitle}", fontsize=16)
+        # fig.suptitle(f"{title}\n\n{subTitle}", fontsize=16)
+        fig.suptitle(title, fontsize=16, fontweight='bold')
+        fig.text(0.5, 0.95, subTitle, fontsize=12, fontweight='bold', ha='center')
         axs_flat = axs.flatten()
 
         for i, (category_title, category_data) in enumerate(gender_data_all_categories.items()):
-            ax_graph = axs_flat[2 * i]
+            if i == 0:
+                ax_graph = axs_flat[2*i + 1]
+                ax_graph.clear()
+                ax_graph.axis('off')
+                ax_table = axs_flat[2*i]
+                ax_table.axis('off')
+                continue
+
+            ax_graph = axs_flat[2 * i + 1]
             ax_graph.plot(data_years, category_data['Total'], label='Total', marker='o')
             ax_graph.plot(data_years, category_data['Female'], label='Female', marker='o')
             ax_graph.plot(data_years, category_data['Male'], label='Male', marker='o')
-            ax_graph.set_title(category_title)
+            ax_graph.set_title(category_title + " Courses", fontweight='bold')
             ax_graph.set_xlabel('School Year')
             ax_graph.set_ylabel('Students')
             ax_graph.set_ylim(bottom=0)
@@ -93,7 +103,7 @@ class ExtractionTools:
             ax_graph.legend()
             ax_graph.grid()
 
-            ax_table = axs_flat[2 * i + 1]
+            ax_table = axs_flat[2 * i]
             ax_table.axis('off')
 
             df = pd.DataFrame(category_data, index=data_years)
@@ -107,19 +117,23 @@ class ExtractionTools:
                 female_percentage = (female / total * 100) if total != 0 else 0
                 male_percentage = (male / total * 100) if total != 0 else 0
 
+                female_cell = f"n<10 \n" if female == 1 else f"{female:,} \n({female_percentage:.1f}%)"
+                male_cell = f"n<10 \n" if male == 1 else f"{male:,} \n({male_percentage:.1f}%)"
+                
+
                 table_data.append([
                     year,
                     total,
-                    f"{female} \n({female_percentage:.1f}%)",
-                    f"{male} \n({male_percentage:.1f}%)"
+                    female_cell,
+                    male_cell
                 ])
 
 
-            ax_table.set_title(category_title + " - Index", fontsize=12, pad=20)
-            table = ax_table.table(cellText=table_data, loc='center', cellLoc='center', colLabels=None, bbox=[-0.05, 0, 1.05, 1])
+            ax_table.text(0.5, 0.96, institution + " Students Enrolled in \n" + category_title + " Courses", fontsize=12, fontweight='bold', ha='center', va='bottom', transform=ax_table.transAxes)
+            table = ax_table.table(cellText=table_data, loc='center', cellLoc='center', colLabels=None, bbox=[0, 0, 1, 0.94])
             table.auto_set_font_size(False)
             table.set_fontsize(10)
-            table.scale(1, 2.7)
+            table.scale(1, 0.8)
             
             for (x, y), cell in table.get_celld().items():
                 if x == 0:
@@ -128,11 +142,11 @@ class ExtractionTools:
         for j in range(2 * len(gender_data_all_categories), len(axs_flat)):
             axs_flat[j].axis('off')
         
-        plt.text(0.95, -0.1, '[*] Values that are between 1 and 9 are shown as 1 due to data masking.',
-            verticalalignment='bottom', horizontalalignment='right',
-            transform=plt.gca().transAxes, fontsize=8, color='gray')
+        # plt.text(0.95, -0.1, '[*] Values that are between 1 and 9 are shown as 1 due to data masking.',
+        #     verticalalignment='bottom', horizontalalignment='right',
+        #     transform=plt.gca().transAxes, fontsize=8, color='gray')
 
-        plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+        plt.tight_layout(rect=[0.03, 0.03, 0.97, 0.95])
         pdf.savefig(fig)
         plt.close(fig)
 

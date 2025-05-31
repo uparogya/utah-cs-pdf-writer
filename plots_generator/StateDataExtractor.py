@@ -214,7 +214,7 @@ class StateDataExtraction:
         
         with PdfPages('./PDF/utah_pdfs/state_gender_data.pdf') as pdf:
             gender_data_all_categories = {
-                'Total Students': {
+                'Utah Student Population': {
                     'Total': total_Total,
                     'Female': total_Female,
                     'Male': total_Male
@@ -246,6 +246,6 @@ class StateDataExtraction:
                 }
             }
 
-            ExtractionTools.plotGenderGraphs(pdf, data_years, gender_data_all_categories, 'Gender Data - All Categories', 'Utah State Data')
+            ExtractionTools.plotGenderGraphs(pdf, data_years, gender_data_all_categories, 'Enrollment for All Categories of CS Courses', 'Utah High School Computer Science Courses')
         
 StateDataExtraction.getData()
