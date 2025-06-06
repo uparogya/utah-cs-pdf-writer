@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
+from PIL import Image
 
 class ExtractionTools:
 
@@ -77,18 +78,44 @@ class ExtractionTools:
 
     def plotGenderGraphs(pdf, data_years, gender_data_all_categories, subTitle, title, institution = 'Utah'):
         fig, axs = plt.subplots(3, 4, figsize=(23, 15))
-        # fig.suptitle(f"{title}\n\n{subTitle}", fontsize=16)
         fig.suptitle(title, fontsize=16, fontweight='bold')
         fig.text(0.5, 0.95, subTitle, fontsize=12, fontweight='bold', ha='center')
         axs_flat = axs.flatten()
 
         for i, (category_title, category_data) in enumerate(gender_data_all_categories.items()):
             if i == 0:
-                ax_graph = axs_flat[2*i + 1]
-                ax_graph.clear()
-                ax_graph.axis('off')
-                ax_table = axs_flat[2*i]
-                ax_table.axis('off')
+                ax_text = axs_flat[2 * i + 1]
+                ax_img = axs_flat[2 * i]
+                ax_text.axis('off')
+                ax_img.axis('off')
+
+                pos0 = axs_flat[0].get_position()
+                pos1 = axs_flat[1].get_position()
+                x0 = pos0.x0 - 0.05
+                y0 = pos0.y0 + 0.033
+                width = pos1.x1 - pos0.x0
+                height = pos0.height
+
+                ax_img = fig.add_axes([x0, y0, width, height])
+                ax_img.axis('off')
+
+                img = Image.open("./assets/images/cs_course_venn_diagram.png")
+                ax_img.imshow(img, aspect='auto')
+
+                ax_img.text(
+                    0.5, -0.02, "In 2023-24, the total "+institution+" student population for grades 9-12 was " + f"{category_data['Total'][-1]:,}",
+                    transform=ax_img.transAxes,
+                    ha='center', va='top',
+                    fontsize=12, fontweight='bold'
+                )
+
+                ax_img.text(
+                    0.5, -0.09, "Any student enrollment less than 10 has been redacted for student privacy and is graphed as 1.",
+                    transform=ax_img.transAxes,
+                    ha='center', va='top',
+                    fontsize=10
+                )
+
                 continue
 
             ax_graph = axs_flat[2 * i + 1]
@@ -119,6 +146,8 @@ class ExtractionTools:
 
                 female_cell = f"n<10 \n" if female == 1 else f"{female:,} \n({female_percentage:.1f}%)"
                 male_cell = f"n<10 \n" if male == 1 else f"{male:,} \n({male_percentage:.1f}%)"
+
+                total = f"{total:,}"
                 
 
                 table_data.append([
@@ -141,12 +170,9 @@ class ExtractionTools:
 
         for j in range(2 * len(gender_data_all_categories), len(axs_flat)):
             axs_flat[j].axis('off')
-        
-        # plt.text(0.95, -0.1, '[*] Values that are between 1 and 9 are shown as 1 due to data masking.',
-        #     verticalalignment='bottom', horizontalalignment='right',
-        #     transform=plt.gca().transAxes, fontsize=8, color='gray')
 
-        plt.tight_layout(rect=[0.03, 0.03, 0.97, 0.95])
+        # plt.tight_layout(rect=[0.03, 0.03, 0.97, 0.95])
+        fig.subplots_adjust(left=0.06, right=0.94, bottom=0.06, top=0.92, wspace=0.3, hspace=0.2)
         pdf.savefig(fig)
         plt.close(fig)
 
