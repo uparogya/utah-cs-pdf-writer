@@ -78,9 +78,38 @@ class ExtractionTools:
 
     def plotGenderGraphs(pdf, data_years, gender_data_all_categories, subTitle, title, institution = 'Utah'):
         fig, axs = plt.subplots(3, 4, figsize=(23, 15))
-        fig.suptitle(title, fontsize=16, fontweight='bold')
-        fig.text(0.5, 0.95, subTitle, fontsize=12, fontweight='bold', ha='center')
+        # fig.suptitle(title, fontsize=16, fontweight='bold')
+        # fig.text(0.5, 0.95, subTitle, fontsize=12, fontweight='bold', ha='center')
         axs_flat = axs.flatten()
+
+        # code for center title
+        block_width = 0.4
+        block_height = 0.06
+        block_left = (1.0 - block_width) / 2
+        block_bottom = 0.92
+        logo_width = 0.08
+        text_width = block_width - logo_width
+        logo_ax = fig.add_axes([block_left, block_bottom, logo_width, block_height])
+        logo_ax.axis('off')
+        logo_img = Image.open("./assets/images/cs4utah.ico")
+        logo_ax.imshow(logo_img)
+        text_ax = fig.add_axes([block_left + logo_width, block_bottom, text_width, block_height])
+        text_ax.axis('off')
+        text_ax.text(0.02, 0.7, title, fontsize=16, fontweight='bold', ha='left', va='top')
+        text_ax.text(0.02, 0.4, subTitle, fontsize=12, fontweight='bold', ha='left', va='top')
+
+        # code for left logo
+        # block_height = 0.06
+        # block_bottom = 0.92
+        # logo_width = 0.05
+        # logo_ax = fig.add_axes([0.02, block_bottom, logo_width, block_height])
+        # logo_ax.axis('off')
+        # logo_img = Image.open("./assets/images/cs4utah.ico")
+        # logo_ax.imshow(logo_img)
+        # text_ax = fig.add_axes([0, block_bottom, 1.0, block_height])
+        # text_ax.axis('off')
+        # text_ax.text(0.5, 0.7, title, fontsize=16, fontweight='bold', ha='center', va='top')
+        # text_ax.text(0.5, 0.4, subTitle, fontsize=12, fontweight='bold', ha='center', va='top')
 
         for i, (category_title, category_data) in enumerate(gender_data_all_categories.items()):
             if i == 0:
@@ -92,7 +121,7 @@ class ExtractionTools:
                 pos0 = axs_flat[0].get_position()
                 pos1 = axs_flat[1].get_position()
                 x0 = pos0.x0 - 0.05
-                y0 = pos0.y0 + 0.033
+                y0 = pos0.y0 + 0.023
                 width = pos1.x1 - pos0.x0
                 height = pos0.height
 
@@ -172,7 +201,9 @@ class ExtractionTools:
             axs_flat[j].axis('off')
 
         # plt.tight_layout(rect=[0.03, 0.03, 0.97, 0.95])
-        fig.subplots_adjust(left=0.06, right=0.94, bottom=0.06, top=0.92, wspace=0.3, hspace=0.2)
+        # fig.subplots_adjust(left=0.06, right=0.94, bottom=0.06, top=0.92, wspace=0.3, hspace=0.2)
+        fig.subplots_adjust(left=0.06, right=0.94, bottom=0.06, top=0.89, wspace=0.3, hspace=0.2)
+
         pdf.savefig(fig)
         plt.close(fig)
 
