@@ -265,7 +265,7 @@ class LEADataExtraction:
                     }
                 }
 
-                ExtractionTools.plotGenderGraphs(pdf, data_years, gender_data_all_categories, 'Gender Data - All Categories', all_leas[district_number], institution = all_leas[district_number].replace(" District", ""))
+                ExtractionTools.plotGenderGraphs(pdf, data_years, gender_data_all_categories, 'Gender Data - All Categories', all_leas[district_number], institution = district_number)
 
             # print(all_leas[district_number] + ' --- Completed')
             # break

@@ -77,6 +77,13 @@ class ExtractionTools:
         # print(title + " --- Completed")
 
     def plotGenderGraphs(pdf, data_years, gender_data_all_categories, subTitle, title, institution = 'Utah'):
+
+        if institution == 'Utah':
+            institution = 'Utah'
+        else:
+            lea_data_xls = pd.read_excel(pd.ExcelFile('./assets/lea_data.xlsx'), sheet_name=f"Sheet 1", header=[0])
+            institution = lea_data_xls.loc[lea_data_xls['NCES'] == institution, 'ABBR'].iloc[0]
+
         fig, axs = plt.subplots(3, 4, figsize=(23, 15))
         # fig.suptitle(title, fontsize=16, fontweight='bold')
         # fig.text(0.5, 0.95, subTitle, fontsize=12, fontweight='bold', ha='center')
