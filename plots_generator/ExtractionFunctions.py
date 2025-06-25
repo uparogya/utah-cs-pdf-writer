@@ -207,9 +207,9 @@ class ExtractionTools:
         for j in range(2 * len(gender_data_all_categories), len(axs_flat)):
             axs_flat[j].axis('off')
         
-        # plt.text(2.1, 1.1, 'n<10 graphed as 1',
-        #     verticalalignment='bottom', horizontalalignment='right',
-        #     transform=plt.gca().transAxes, fontsize=16, fontweight='bold', color='fuchsia')
+        plt.text(2.33, 1.1, 'n<10 graphed as 1',
+            verticalalignment='bottom', horizontalalignment='right',
+            transform=plt.gca().transAxes, fontsize=20, fontweight='bold', color='fuchsia')
 
         # plt.tight_layout(rect=[0.03, 0.03, 0.97, 0.95])
         # fig.subplots_adjust(left=0.06, right=0.94, bottom=0.06, top=0.92, wspace=0.3, hspace=0.2)
